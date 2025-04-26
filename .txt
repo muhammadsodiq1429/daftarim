@@ -1,2 +1,0 @@
-Daftarim loyihasida User va Admin uchun CRUD, SignUp va SignIn metodlarini yozish.
-Avvaal yozilgan tablelar uchun validation yozish
