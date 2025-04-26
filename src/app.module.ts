@@ -9,6 +9,10 @@ import { Type } from "./types/models/type.model";
 import { Property } from "./property/models/property.model";
 import { Block } from "./blocks/models/block.model";
 import { BlockProperty } from "./block_properties/models/block_property.model";
+import { UsersModule } from "./users/users.module";
+import { User } from "./users/models/user.model";
+import { AuthModule } from './auth/auth.module';
+import { AdminsModule } from './admins/admins.module';
 
 @Module({
   imports: [
@@ -20,7 +24,7 @@ import { BlockProperty } from "./block_properties/models/block_property.model";
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Type, Property, Block, BlockProperty],
+      models: [Type, Property, Block, BlockProperty, User],
       autoLoadModels: true,
       sync: { alter: true },
       logging: false,
@@ -29,6 +33,9 @@ import { BlockProperty } from "./block_properties/models/block_property.model";
     TypesModule,
     PropertyModule,
     BlockPropertiesModule,
+    UsersModule,
+    AuthModule,
+    AdminsModule,
   ],
   controllers: [],
   providers: [],

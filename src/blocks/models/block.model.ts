@@ -11,6 +11,7 @@ import {
 import { Type } from "../../types/models/type.model";
 import { Property } from "../../property/models/property.model";
 import { BlockProperty } from "../../block_properties/models/block_property.model";
+import { User } from "../../users/models/user.model";
 
 interface ICreationBlockAttr {
   typeId: number;
@@ -28,6 +29,7 @@ export class Block extends Model<Block, ICreationBlockAttr> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare typeId: number;
 
+  // @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare created_by: number;
 
@@ -46,4 +48,7 @@ export class Block extends Model<Block, ICreationBlockAttr> {
 
   @BelongsToMany(() => Property, () => BlockProperty)
   declare properties: Property[];
+
+  // @BelongsTo(() => User)
+  // declare user: User;
 }
