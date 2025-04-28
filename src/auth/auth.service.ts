@@ -25,7 +25,7 @@ export class AuthService {
     const payload = {
       id: user.id,
       email: user.email,
-      role: user.role ?? null,
+      role_id: user.role_id ?? null,
     };
     return this.jwtService.sign(payload, {
       secret: process.env.SECRET_KEY,
@@ -39,7 +39,7 @@ export class AuthService {
 
     const newUser = await this.userService.create(createUserDto);
 
-    return { message: "You successfully signed up", yourId: newUser.id };
+    return { message: "User successfully signed up", id: newUser.id };
   }
 
   async signInUser(signInDto: SignInDto) {

@@ -44,6 +44,11 @@ export class CreateUserDto {
   @IsStrongPassword()
   password: string;
 
+  @ApiProperty({
+    example: "photo1.jpg",
+    description: "Foydalanuvchi profili uchun rasm",
+    required: false,
+  })
   @IsString()
   @IsOptional()
   photo: string;
