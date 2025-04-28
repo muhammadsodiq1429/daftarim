@@ -19,7 +19,6 @@ import {
   ApiResponse,
 } from "@nestjs/swagger";
 import { User } from "./models/user.model";
-import { AdminAuthGuard } from "../common/guards/admin.auth.guard";
 import { UserAuthGuard } from "../common/guards/user.auth.guard";
 
 @Controller("users")
@@ -43,7 +42,7 @@ export class UsersController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-
+  
   @UseGuards(UserAuthGuard)
   @ApiOperation({ summary: "User'lar ro'yxatini olish" })
   @ApiOkResponse({

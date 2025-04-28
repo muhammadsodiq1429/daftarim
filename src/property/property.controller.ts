@@ -20,7 +20,7 @@ import { Property } from "./models/property.model";
 
 @Controller("property")
 export class PropertyController {
-  constructor(private readonly typeService: PropertyService) {}
+  constructor(private readonly propertyService: PropertyService) {}
 
   @ApiOperation({ summary: "Yangi property qo'shish" })
   @ApiCreatedResponse({
@@ -29,7 +29,7 @@ export class PropertyController {
   })
   @Post()
   create(@Body() createPropertyDto: CreatePropertyDto) {
-    return this.typeService.create(createPropertyDto);
+    return this.propertyService.create(createPropertyDto);
   }
 
   @ApiOperation({ summary: "Property ro'yxatini olish" })
@@ -39,7 +39,7 @@ export class PropertyController {
   })
   @Get()
   findAll() {
-    return this.typeService.findAll();
+    return this.propertyService.findAll();
   }
 
   @ApiOperation({ summary: "Property'ni id'si orqali olish" })
@@ -49,7 +49,7 @@ export class PropertyController {
   })
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.typeService.findOne(+id);
+    return this.propertyService.findOne(+id);
   }
 
   @ApiOperation({ summary: "Property'ni id'si orqali yangilash" })
@@ -62,7 +62,7 @@ export class PropertyController {
     @Param("id") id: string,
     @Body() updatePropertyDto: UpdatePropertyDto
   ) {
-    return this.typeService.update(+id, updatePropertyDto);
+    return this.propertyService.update(+id, updatePropertyDto);
   }
 
   @ApiOperation({ summary: "Property'ni id'si orqali o'chirish" })
@@ -71,13 +71,13 @@ export class PropertyController {
     schema: {
       type: "object",
       properties: {
-        message: { type: "string", example: "Blcok successfully deleted" },
+        message: { type: "string", example: "Property successfully deleted" },
         id: { type: "integer", example: 1 },
       },
     },
   })
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.typeService.remove(+id);
+    return this.propertyService.remove(+id);
   }
 }

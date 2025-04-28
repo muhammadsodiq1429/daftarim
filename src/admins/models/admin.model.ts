@@ -1,5 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from "sequelize-typescript";
+import { Role } from "../../roles/models/role.model";
 
 interface ICreationAdminAttr {
   full_name: string;
@@ -23,9 +31,13 @@ export class Admin extends Model<Admin, ICreationAdminAttr> {
   @Column({ type: DataType.STRING })
   declare password: string;
 
+  @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER })
   declare role_id: number;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: true })
   declare is_active: boolean;
+
+  @BelongsTo(() => Role)
+  role: Role;
 }

@@ -4,11 +4,13 @@ import { AuthController } from "./auth.controller";
 import { UsersModule } from "../users/users.module";
 import { JwtModule } from "@nestjs/jwt";
 import { AdminsModule } from "../admins/admins.module";
+import { FileModule } from "../file/file.module";
 
 @Module({
   imports: [
     UsersModule,
     AdminsModule,
+    FileModule,
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,

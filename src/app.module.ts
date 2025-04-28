@@ -11,11 +11,22 @@ import { Block } from "./blocks/models/block.model";
 import { BlockProperty } from "./block_properties/models/block_property.model";
 import { UsersModule } from "./users/users.module";
 import { User } from "./users/models/user.model";
-import { AuthModule } from './auth/auth.module';
-import { AdminsModule } from './admins/admins.module';
+import { AuthModule } from "./auth/auth.module";
+import { AdminsModule } from "./admins/admins.module";
+import { RolesModule } from "./roles/roles.module";
+import { Role } from "./roles/models/role.model";
+import { Admin } from "./admins/models/admin.model";
+import { FileModule } from "./file/file.module";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
+import { WorkspaceModule } from "./workspace/workspace.module";
+import { Workspace } from "./workspace/model/workspace.model";
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "static"),
+    }),
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
     SequelizeModule.forRoot({
       dialect: "postgres",
@@ -24,7 +35,16 @@ import { AdminsModule } from './admins/admins.module';
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Type, Property, Block, BlockProperty, User],
+      models: [
+        Type,
+        Property,
+        Block,
+        BlockProperty,
+        User,
+        Role,
+        Admin,
+        Workspace,
+      ],
       autoLoadModels: true,
       sync: { alter: true },
       logging: false,
@@ -36,6 +56,9 @@ import { AdminsModule } from './admins/admins.module';
     UsersModule,
     AuthModule,
     AdminsModule,
+    RolesModule,
+    FileModule,
+    WorkspaceModule,
   ],
   controllers: [],
   providers: [],

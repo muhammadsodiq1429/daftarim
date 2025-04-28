@@ -12,13 +12,15 @@ import { AdminsService } from "../admins/admins.service";
 import { AdminsModule } from "../admins/admins.module";
 import { User } from "../users/models/user.model";
 import { Admin } from "../admins/models/admin.model";
+import { FileService } from "../file/file.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService,
     private readonly adminService: AdminsService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly fileService: FileService
   ) {}
 
   private async generateToken(user) {
@@ -33,10 +35,11 @@ export class AuthService {
     });
   }
 
-  async signUpUser(createUserDto: CreateUserDto) {
+  async signUpUser(createUserDto: CreateUserDto, image: any) {
     const condidant = await this.userService.findByEmail(createUserDto.email);
     if (condidant) throw new ConflictException("Email already exists");
 
+    const fileName = await this.fileService.saveFile(image);
     const newUser = await this.userService.create(createUserDto);
 
     return { message: "User successfully signed up", id: newUser.id };
