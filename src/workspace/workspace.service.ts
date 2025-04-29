@@ -2,15 +2,19 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto";
 import { UpdateWorkspaceDto } from "./dto/update-workspace.dto";
 import { InjectModel } from "@nestjs/sequelize";
-import { Workspace } from "./model/workspace.model";
+import { Workspace } from "./models/workspace.model";
+import { FileService } from "../file/file.service";
 
 @Injectable()
 export class WorkspaceService {
   constructor(
-    @InjectModel(Workspace) private workspaceModel: typeof Workspace
+    @InjectModel(Workspace) private workspaceModel: typeof Workspace,
+    private readonly fileService: FileService
   ) {}
 
-  async create(createWorkspaceDto: CreateWorkspaceDto) {
+  async create(createWorkspaceDto: CreateWorkspaceDto, icon: any) {
+    if (icon) createWorkspaceDto.icon = await this.fileService.saveFile(icon);
+
     const newWorkspace = await this.workspaceModel.create(createWorkspaceDto);
 
     return newWorkspace;
@@ -39,6 +43,7 @@ export class WorkspaceService {
 
   async update(id: number, updateWorkspaceDto: UpdateWorkspaceDto) {
     const workspace = await this.findOne(id);
+    
     await workspace.update(updateWorkspaceDto);
 
     return {

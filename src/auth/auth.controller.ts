@@ -29,9 +29,9 @@ export class AuthController {
     },
   })
   @Post("sign-up-user")
-  @UseInterceptors(FileInterceptor("image"))
-  signUpUser(@Body() createUserDto: CreateUserDto, @UploadedFile() image: any) {
-    return this.authService.signUpUser(createUserDto, image);
+  @UseInterceptors(FileInterceptor("photo"))
+  signUpUser(@Body() createUserDto: CreateUserDto, @UploadedFile() photo: any) {
+    return this.authService.signUpUser(createUserDto, photo);
   }
 
   @ApiOperation({ summary: "User uchun sing in" })

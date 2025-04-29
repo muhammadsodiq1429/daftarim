@@ -1,7 +1,5 @@
-import { Transform } from "class-transformer";
 import {
   IsNotEmpty,
-  IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
@@ -9,7 +7,7 @@ import {
 
 export class CreateWorkspaceDto {
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberString()
   created_by: number;
 
   @IsString()
@@ -18,7 +16,7 @@ export class CreateWorkspaceDto {
 
   @IsString()
   @IsOptional()
-  icon?: string;
+  icon?: any;
 
   @IsString()
   @IsNotEmpty()

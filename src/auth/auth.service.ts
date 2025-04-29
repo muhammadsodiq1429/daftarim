@@ -40,7 +40,10 @@ export class AuthService {
     if (condidant) throw new ConflictException("Email already exists");
 
     const fileName = await this.fileService.saveFile(image);
-    const newUser = await this.userService.create(createUserDto);
+    const newUser = await this.userService.create({
+      ...createUserDto,
+      photo: fileName,
+    });
 
     return { message: "User successfully signed up", id: newUser.id };
   }

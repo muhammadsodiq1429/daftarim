@@ -20,7 +20,13 @@ import { FileModule } from "./file/file.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
 import { WorkspaceModule } from "./workspace/workspace.module";
-import { Workspace } from "./workspace/model/workspace.model";
+import { Workspace } from "./workspace/models/workspace.model";
+import { GroupsModule } from "./groups/groups.module";
+import { Group } from "./groups/models/group.model";
+import { PermissionsModule } from "./permissions/permissions.module";
+import { Permission } from "./permissions/models/permission.model";
+import { TeamspaceModule } from "./teamspace/teamspace.module";
+import { Teamspace } from "./teamspace/models/teamspace.model";
 
 @Module({
   imports: [
@@ -44,6 +50,9 @@ import { Workspace } from "./workspace/model/workspace.model";
         Role,
         Admin,
         Workspace,
+        Group,
+        Permission,
+        Teamspace,
       ],
       autoLoadModels: true,
       sync: { alter: true },
@@ -59,6 +68,9 @@ import { Workspace } from "./workspace/model/workspace.model";
     RolesModule,
     FileModule,
     WorkspaceModule,
+    GroupsModule,
+    PermissionsModule,
+    TeamspaceModule,
   ],
   controllers: [],
   providers: [],
