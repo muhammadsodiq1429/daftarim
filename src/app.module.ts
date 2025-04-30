@@ -27,6 +27,16 @@ import { PermissionsModule } from "./permissions/permissions.module";
 import { Permission } from "./permissions/models/permission.model";
 import { TeamspaceModule } from "./teamspace/teamspace.module";
 import { Teamspace } from "./teamspace/models/teamspace.model";
+import { GroupMembersModule } from "./group_members/group_members.module";
+import { GroupMember } from "./group_members/models/group_member.model";
+import { WorkspaceMembersModule } from "./workspace_members/workspace_members.module";
+import { WorkspaceMember } from "./workspace_members/models/workspace_member.model";
+import { TeamspaceMembersModule } from "./teamspace_members/teamspace_members.module";
+import { TeamspaceMember } from "./teamspace_members/models/teamspace_member.model";
+import { DevicesModule } from "./devices/devices.module";
+import { Device } from "./devices/models/device.model";
+import { CommentsModule } from "./comments/comments.module";
+import { Comment } from "./comments/models/comment.model";
 
 @Module({
   imports: [
@@ -53,6 +63,11 @@ import { Teamspace } from "./teamspace/models/teamspace.model";
         Group,
         Permission,
         Teamspace,
+        GroupMember,
+        WorkspaceMember,
+        TeamspaceMember,
+        Device,
+        Comment,
       ],
       autoLoadModels: true,
       sync: { alter: true },
@@ -71,6 +86,11 @@ import { Teamspace } from "./teamspace/models/teamspace.model";
     GroupsModule,
     PermissionsModule,
     TeamspaceModule,
+    GroupMembersModule,
+    WorkspaceMembersModule,
+    TeamspaceMembersModule,
+    DevicesModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
