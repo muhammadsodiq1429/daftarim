@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -29,9 +30,11 @@ export class AuthController {
     },
   })
   @Post("sign-up-user")
-  @UseInterceptors(FileInterceptor("photo"))
-  signUpUser(@Body() createUserDto: CreateUserDto, @UploadedFile() photo: any) {
-    return this.authService.signUpUser(createUserDto, photo);
+  // @UseInterceptors(FileInterceptor("photo"))
+  signUpUser(
+    @Body() createUserDto: CreateUserDto /*@UploadedFile() photo: any*/
+  ) {
+    return this.authService.signUpUser(createUserDto /*photo*/);
   }
 
   @ApiOperation({ summary: "User uchun sing in" })
@@ -69,6 +72,7 @@ export class AuthController {
       },
     },
   })
+  @HttpCode(200)
   @Post("sign-in-admin")
   singInAdmin(@Body() signInDto: SignInDto) {
     return this.authService.signInAdmin(signInDto);

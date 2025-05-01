@@ -42,7 +42,7 @@ export class UsersController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-  
+
   @UseGuards(UserAuthGuard)
   @ApiOperation({ summary: "User'lar ro'yxatini olish" })
   @ApiOkResponse({
@@ -76,6 +76,7 @@ export class UsersController {
   })
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
+
     return this.usersService.update(+id, updateUserDto);
   }
 

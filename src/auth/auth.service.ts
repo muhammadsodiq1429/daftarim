@@ -35,14 +35,14 @@ export class AuthService {
     });
   }
 
-  async signUpUser(createUserDto: CreateUserDto, image: any) {
+  async signUpUser(createUserDto: CreateUserDto /*image: any*/) {
     const condidant = await this.userService.findByEmail(createUserDto.email);
     if (condidant) throw new ConflictException("Email already exists");
 
-    const fileName = await this.fileService.saveFile(image);
+    // const fileName = await this.fileService.saveFile(image);
     const newUser = await this.userService.create({
       ...createUserDto,
-      photo: fileName,
+      // photo: fileName,
     });
 
     return { message: "User successfully signed up", id: newUser.id };
@@ -63,7 +63,7 @@ export class AuthService {
 
   async signInAdmin(signInDto: SignInDto) {
     const admin = await this.adminService.findByEmail(signInDto.email);
-    console.log(admin);
+
     if (!admin) throw new UnauthorizedException("Invalid credentials");
 
     const validPassword = await bcrypt.compare(

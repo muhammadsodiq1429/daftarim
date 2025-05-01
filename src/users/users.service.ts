@@ -14,8 +14,9 @@ export class UsersService {
   constructor(@InjectModel(User) private userModel: typeof User) {}
 
   async create(createUserDto: CreateUserDto) {
-    const admin = await this.findByEmail(createUserDto.email);
-    if (admin) throw new ConflictException("Email already exists");
+    const user = await this.findByEmail(createUserDto.email);
+
+    if (user) throw new ConflictException("Email already exists");
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
     const newUser = await this.userModel.create(createUserDto);
 
@@ -37,12 +38,16 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return this.userModel.findOne({ where: { email } });
+    const user = await this.userModel.findOne({ where: { email } });
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
-    await user.update(updateUserDto);
+
+    if (await this.findByEmail(user.email)) throw new ConflictException("Email already exists")
+      await user.update(updateUserDto);
 
     return { message: "User successfully updated", updatedUser: user };
   }
